@@ -1,26 +1,26 @@
-import { Text } from "react-native";
-import { useState } from "react";
 import { TextInput, StyleSheet } from "react-native";
 
 type Props = {
     placeholder: string,
-    onChange: () => void,
-    busca: string
+    onChangeText: (value: string) => void,
+    onSubmitEditing: () => void
 }
 
 
-export default function SearchBar({placeholder, onChange, busca}:Props) {
+export default function SearchBar({placeholder, onChangeText, onSubmitEditing}:Props) {
     return (
         <TextInput
         style={styles.input}
-        placeholder={placeholder}>
-        </TextInput>
+        placeholder={placeholder}
+        onChangeText={e => onChangeText(e)}
+        onSubmitEditing={() => onSubmitEditing()}
+        ></TextInput>
     )
 }
 
 const styles = StyleSheet.create({
     input: {
-        backgroundColor: '#fff',
+        backgroundColor: '#D9D9D9',
         width: 342,
         height: 70,
         borderRadius: 16,

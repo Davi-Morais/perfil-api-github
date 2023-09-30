@@ -5,13 +5,17 @@ import { useState } from "react";
 import SearchBar from './componentes/SearchBar';
 
 export default function App() {
+  
+  function pesquisar() {
+    console.log(busca)
+  }
 
   const [busca, setBusca] = useState('');
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Pesquisar Perfil GitHub</Text>
-      <SearchBar placeholder='Pesquise...' busca={busca} onChange={() => setBusca}/>
+      <SearchBar placeholder='Pesquise...' onSubmitEditing={pesquisar} onChangeText={setBusca} />
       <StatusBar style='light' hidden={false} />
     </View>
   );
