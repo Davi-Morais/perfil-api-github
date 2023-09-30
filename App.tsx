@@ -4,16 +4,23 @@ import { useState } from "react";
 
 import SearchBar from './componentes/SearchBar';
 import DisplayUser from './componentes/DisplayUser';
+import DisplayRepos from './componentes/DisplayRepos';
 
 type User = {
   name: string,
   avatar_url: string
 }
 
+type Repo = {
+  name: string,
+  description: string
+}
+
 export default function App() {
   
   const [user, setUser] = useState <User|null> (null);
   const [busca, setBusca] = useState('');
+  const [repos, setRepos] = useState<Repo[]|null>(null);
 
   async function BuscarPerfil() {
     await fetch(`https://api.github.com/users/${busca}`, {
@@ -25,6 +32,16 @@ export default function App() {
       setUser(null)
       console.error(error)
     })
+
+    fetch(`https://api.github.com/users/${busca}/repos`, {
+      method: "GET",
+    })
+    .then(res => res.json())
+    .then(res => setRepos(res))
+    .catch(error => {
+      setRepos(null)
+      console.error(error)
+    })
   }
 
   return (
@@ -33,6 +50,7 @@ export default function App() {
       <SearchBar placeholder='Pesquise...' onChangeText={setBusca} onSubmitEditing={BuscarPerfil} />
 
       <DisplayUser user={user} />
+      <DisplayRepos repos={repos} />
 
       <StatusBar style='light' hidden={false} />
     </View>
