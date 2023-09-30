@@ -1,10 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+
+import SearchBar from './componentes/SearchBar';
 
 export default function App() {
+
+  const [busca, setBusca] = useState('');
+
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Pesquisar Perfil GitHub</Text>
+      <SearchBar placeholder='Pesquise...' busca={busca} onChange={() => setBusca}/>
       <StatusBar style='light' hidden={false} />
     </View>
   );
