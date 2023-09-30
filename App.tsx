@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useState } from "react";
 
 import SearchBar from './componentes/SearchBar';
@@ -45,7 +45,7 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }} style={styles.container}>
       <Text style={styles.titulo}>Pesquisar Perfil GitHub</Text>
       <SearchBar placeholder='Pesquise...' onChangeText={setBusca} onSubmitEditing={BuscarPerfil} />
 
@@ -53,7 +53,7 @@ export default function App() {
       <DisplayRepos repos={repos} />
 
       <StatusBar style='light' hidden={false} />
-    </View>
+    </ScrollView>
   );
 }
 
@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#31333C',
-    alignItems: 'center',
   },
   titulo: {
     color: '#fff',
