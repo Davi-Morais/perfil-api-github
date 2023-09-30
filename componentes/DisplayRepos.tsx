@@ -12,19 +12,13 @@ type Props = {
 export default function DisplayRepos({repos}:Props) {
     return (
         <View  style={styles.container}>
-            {repos ? (
-
-                <FlatList
-                data={repos}
-                renderItem={(r) =>
-
-                    <View key={r.index} style={styles.repo}>
-                        <Text style={styles.name}>{r.item.name}</Text>
-                        <Text style={styles.description}>{r.item.description}</Text>
-                    </View>}
-
-                />
-
+            {Array.isArray(repos) ? (
+                repos.map((r, index) => (
+                    <View key={index} style={styles.repo}>
+                        <Text style={styles.name}>{r.name}</Text>
+                        <Text style={styles.description}>{r.description}</Text>
+                    </View>
+                ))
             ) : (
                 <View />
             )}
@@ -36,20 +30,25 @@ const styles = StyleSheet.create({
     container: {
         marginRight: 25,
         marginLeft: 25,
+        marginTop: 80
     },
     repo: {
         marginBottom: 45,
         backgroundColor: '#444653',
         width: 342,
-        height: 111,
-        alignItems: 'center'
+        height: 'auto',
+        alignItems: 'center',
+        padding: 10,
+        paddingTop: 2
     },
     name: {
         color: '#fff',
-        fontSize: 30
+        fontSize: 30,
+        textAlign: 'center'
     },
     description: {
         color: '#fff',
-        fontSize: 15
+        fontSize: 15,
+        textAlign: 'auto'
     }
 })
