@@ -6,16 +6,21 @@ import SearchBar from './componentes/SearchBar';
 
 export default function App() {
   
-  function pesquisar() {
-    console.log(busca)
-  }
-
+  
   const [busca, setBusca] = useState('');
+  async function BuscarPerfil() {
+    await fetch(`https://api.github.com/users/${busca}`, {
+      method: "GET",
+    })
+    .then(res => res.json())
+    .then(res => console.log(res.name))
+    .catch(error => console.error(error))
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>Pesquisar Perfil GitHub</Text>
-      <SearchBar placeholder='Pesquise...' onSubmitEditing={pesquisar} onChangeText={setBusca} />
+      <SearchBar placeholder='Pesquise...' onChangeText={setBusca} onSubmitEditing={BuscarPerfil} />
       <StatusBar style='light' hidden={false} />
     </View>
   );
